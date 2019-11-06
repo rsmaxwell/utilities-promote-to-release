@@ -1,0 +1,45 @@
+#!/bin/bash
+
+#**************************************************************
+# Get the versions
+#**************************************************************
+. ./version
+
+#**************************************************************
+# Deploy 'utilities' to 'staging'
+#**************************************************************
+
+REPOSITORY_URL="https://server.rsmaxwell.co.uk/archiva/repository"
+REPOSITORYID="staging"
+REPOSITORY="staging"
+GROUPID="com.rsmaxwell.utilities"
+ARTIFACTID="utilities"
+VERSION=${utilities_version}
+PACKAGING="jar"
+
+URL=${REPOSITORY_URL}/${REPOSITORY}/
+
+filename=${ARTIFACTID}-${VERSION}.${PACKAGING}
+pathname=${HOME}/.m2/repository/${GROUPID//.//}/${ARTIFACTID}/${VERSION}/${filename}
+if [ ! -f ${pathname} ]; then
+    echo "Error: $0[${LINENO}]"
+    echo "result: ${result}"
+    exit 1
+fi
+
+cp ${pathname} .
+result=$?
+if [ ! ${result} == 0 ]; then
+    echo "Error: $0[${LINENO}]"
+    echo "result: ${result}"
+    exit 1
+fi
+
+mvn --batch-mode deploy:deploy-file \
+	-DgroupId=${GROUPID} \
+	-DartifactId=${ARTIFACTID} \
+	-Dversion=${VERSION} \
+	-Dpackaging=${PACKAGING} \
+	-Dfile=${filename} \
+	-DrepositoryId=${REPOSITORYID} \
+	-Durl=${URL}
