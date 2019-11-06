@@ -6,12 +6,12 @@
 . ./version
 
 #**************************************************************
-# Deploy 'utilities' to 'staging'
+# Deploy 'utilities' to 'releases'
 #**************************************************************
 
 REPOSITORY_URL="https://server.rsmaxwell.co.uk/archiva/repository"
-REPOSITORYID="staging"
-REPOSITORY="staging"
+REPOSITORYID="releases"
+REPOSITORY="releases"
 GROUPID="com.rsmaxwell.utilities"
 ARTIFACTID="utilities"
 VERSION=${utilities_version}
