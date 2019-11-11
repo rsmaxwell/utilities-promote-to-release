@@ -168,8 +168,7 @@ ARTIFACTID="utilities"
 VERSION="${utilities_version}"
 PACKAGING="jar"
 
-mvn 
---batch-mode --log-file output.txt dependency:get -Dartifact=${GROUPID}:${ARTIFACTID}:${VERSION}
+mvn --batch-mode --log-file output.txt dependency:get -Dartifact=${GROUPID}:${ARTIFACTID}:${VERSION}
 result=$?
 if [ ! ${result} == 0 ]; then
     echo "Error: $0[${LINENO}]"
